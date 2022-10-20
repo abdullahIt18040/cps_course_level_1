@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int mx=5e6+123;
+#define endl '\n'
+#define optimization() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+bitset<mx>is_prime;
+vector<int>prime;
+int arr[mx];
+
+void primeGen(int n)
+{
+    for(int i=3;i<=n;i+=2)
+    {
+        is_prime[i]=1;
+
+    }
+    int sq=sqrt(n);
+    for(int i=3;i<=sq;i++)
+    {
+        if(is_prime[i]==1)
+        {
+            for(int j=(i*i);j<=n;j+=(i+i))
+            {
+                is_prime[j]=0;
+            }
+        }
+    }
+
+    is_prime[2]=1;
+    prime.push_back(2);
+
+    for(int i=3;i<=n;i+=2)
+    {
+        if(is_prime[i]==1)
+            prime.push_back(i);
+    }
+
+
+}
+
+
+
+ int main()
+ {
+     int lim=1e7;
+     primeGen(lim);
+
+     int cnt=0;
+     int n;
+     cin>>n;
+     n=n-1;
+
+
+     for(auto p:prime)
+     {
+       if(p>n)
+            break;
+       else
+        cnt++;
+     }
+     cout<<cnt<<endl;
+     return 0;
+
+ }
+
